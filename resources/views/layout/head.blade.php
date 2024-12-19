@@ -4,7 +4,7 @@
 <meta name="keywords" content="kopi murah, kopi enak, aplikasi kopi, pesan kopi online, Sivinaries Coffee, kopi berkualitas, kopi terbaik">
 <meta name="author" content="Sivinaries Coffee">
 <meta name="robots" content="index, follow">
-<link rel="icon" sizes="76x76" href="{{ asset('logi.png') }}" />
+<link rel="icon" sizes="76x76" href="{{ asset('logo.png') }}" />
 <link rel="icon" type="image/png" href="{{ asset('logo.png') }}" />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

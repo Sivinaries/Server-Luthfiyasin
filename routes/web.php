@@ -19,6 +19,7 @@ Route::post('/signin', [AuthController::class, 'signin'])->name('signin');
 Route::middleware('auth')->group(function () {
     //PAGES
     Route::get('/dashboard', [PagesController::class, 'dashboard'])->name('dashboard');
+    Route::get('/search', [PagesController::class, 'search'])->name('search');
 
     //USER CONTROLLER
     Route::get('/users', [UserController::class, 'index'])->name('user');

@@ -2,7 +2,7 @@
     <div class="flex justify-around md:justify-end p-4 space-x-2 md:space-x-4">
         <div class="flex justify-end">
             <div class="my-auto">
-                <form method="get" action="">
+                <form method="get" action="{{ ('search') }}">
                     <div class="md:border-2 border p-1 rounded-xl md:px-4 flex">
                         <span class="">
                             <i class="material-icons">search</i>
