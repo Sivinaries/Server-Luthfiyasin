@@ -17,6 +17,7 @@ class PagesController extends Controller
         $category = Category::count();
         $sender = Message::count();
 
+        
         // CHARTS DAERAH - Count messages by region (daerah)
         $grafikDaerah = Message::selectRaw("COUNT(*) as count, daerah_id")
             ->groupBy('daerah_id') // Group by region (daerah)
@@ -89,6 +90,7 @@ class PagesController extends Controller
             'data2',
             'colors2',
         ));
+
     }
 
     public function search(Request $request)

@@ -99,7 +99,7 @@
             cluster: "",
             enabledTransports: ['ws'],
             forceTLS: false,
-            wsHost: "127.0.0.1",
+            wsHost: "192.168.100.48",
             wsPort: "8080"
         });
 

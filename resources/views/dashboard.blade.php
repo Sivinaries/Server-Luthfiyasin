@@ -19,130 +19,137 @@
             <div class='w-full rounded-xl h-fit mx-auto space-y-2'>
                 <div class="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-4 lg:grid-cols-4 gap-4 p-2">
                     <!-- card1 -->
-                    <a href="">
-                        <div class="bg-red-500 p-6 rounded-lg shadow-xl">
-                            <h1 class="text-2xl text-white font-bold">{{ $message }}</h1>
-                            <h1 class="text-xl font-light text-white text-right">Message</h1>
-                        </div>
-                    </a>
+                    <div class="bg-red-500 p-6 rounded-lg shadow-xl">
+                        <h1 class="text-2xl text-white font-bold">{{ $message }}</h1>
+                        <h1 class="text-xl font-light text-white text-right">Message</h1>
+                    </div>
                     <!-- card2 -->
-                    <a href="">
-                        <div class="bg-blue-500 p-6 rounded-lg shadow-xl">
-                            <h1 class="text-2xl text-white font-bold">{{ $country }}</h1>
-                            <h1 class="text-xl font-light text-white text-right">Country</h1>
-                        </div>
-                    </a>
+                    <div class="bg-blue-500 p-6 rounded-lg shadow-xl">
+                        <h1 class="text-2xl text-white font-bold">{{ $country }}</h1>
+                        <h1 class="text-xl font-light text-white text-right">Country</h1>
+                    </div>
                     <!-- card3 -->
-                    <a href="">
-                        <div class="bg-green-500 p-6 rounded-lg shadow-xl">
-                            <h1 class="text-2xl text-white font-bold">{{ $category }}</h1>
-                            <h1 class="text-xl font-light text-white text-right">Category</h1>
-                        </div>
-                    </a>
+                    <div class="bg-green-500 p-6 rounded-lg shadow-xl">
+                        <h1 class="text-2xl text-white font-bold">{{ $category }}</h1>
+                        <h1 class="text-xl font-light text-white text-right">Category</h1>
+                    </div>
                     <!-- card4 -->
-                    <a href="#">
-                        <div class="bg-yellow-500 p-6 rounded-lg shadow-xl">
-                            <h1 class="text-2xl text-white font-bold">{{ $sender }}</h1>
-                            <h1 class="text-xl font-light text-white text-right">Sender</h1>
-                        </div>
-                    </a>
+                    <div class="bg-yellow-500 p-6 rounded-lg shadow-xl">
+                        <h1 class="text-2xl text-white font-bold">{{ $sender }}</h1>
+                        <h1 class="text-xl font-light text-white text-right">Sender</h1>
+                    </div>
                 </div>
                 <!-- chart section -->
                 <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 ">
                     <!-- chart 1 -->
-                    <div class="p-6 bg-white rounded-xl shadow-xl ">
+                    <div class="p-6 bg-white rounded-xl shadow-xl my-auto">
                         <h1 class="font-light">Pesan Berdasarkan Daerah</h1>
                         <i class="fa fa-arrow-up text-lime-500"></i>
-                        <canvas id="daerahChart" width="50" height="50"></canvas>
+                        <div class="md:w-5/6 mx-auto">
+                            <canvas id="daerahChart" width="50" height="50"></canvas>
+                        </div>
                     </div>
                     <!-- chart 2 -->
-                    <div class="p-6 bg-white rounded-xl shadow-xl">
+                    <div class="p-6 bg-white rounded-xl shadow-xl my-auto">
                         <h1 class="font-light">Pesan Berdasarkan Kategori</h1>
                         <i class="fa fa-arrow-up text-lime-500"></i>
-                        <canvas id="categoryChart" width="20" height="20"></canvas>
-                    </div>
-                </div>
-                <!-- chart 3 -->
-                <div class="grid grid-cols-1">
-                    <div class="p-6 bg-white rounded-xl shadow-xl">
-                        <h1 class="font-light">Total Pesan Masuk</h1>
-                        <i class="fa fa-arrow-up text-lime-500"></i>
-                        <canvas id="grafikHistoy" width="100" height="50"></canvas>
+                        <div class="md:w-5/6 mx-auto">
+                            <canvas id="categoryChart" width="50" height="50"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://js.pusher.com/8.3.0/pusher.min.js"></script>
     <script>
-        //DAERAH CHART
-
-        var ctx = document.getElementById('daerahChart').getContext('2d');
-
-        var myChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: @json($labels1), // Region names (Daerah)
-                datasets: [{
-                    label: 'Messages Count',
-                    data: @json($data1), // Message counts per region
-                    backgroundColor: @json($colors1), // Colors from the backend
-                    borderColor: @json($colors1).map(color1 => color1.replace('0.2',
-                        '1')), // Darker borders
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(tooltipItem) {
-                                return tooltipItem.label + ': ' + tooltipItem.raw +
-                                    ' messages'; // Show count in tooltip
-                            }
-                        }
-                    }
-                }
-            }
+        var pusher = new Pusher("ivpc4objrm2qhg4k3uhy", {
+            cluster: "",
+            enabledTransports: ['ws'],
+            forceTLS: false,
+            wsHost: "192.168.100.48",
+            wsPort: "8080"
         });
 
-        //CATEGORY CHART
+        var channel = pusher.subscribe("messages");
 
-        var ctx = document.getElementById('categoryChart').getContext('2d');
+        channel.bind('new-message', function(data) {
+            // Update Region Chart
+            daerahChart.data.labels = Object.keys(data.chartData.regions); // Names (not IDs)
+            daerahChart.data.datasets[0].data = Object.values(data.chartData.regions); // Counts
+            daerahChart.update();
 
-        var myChart = new Chart(ctx, {
+            // Update Category Chart
+            categoryChart.data.labels = Object.keys(data.chartData.categories); // Names (not IDs)
+            categoryChart.data.datasets[0].data = Object.values(data.chartData.categories); // Counts
+            categoryChart.update();
+
+            // Update Total Messages
+            document.querySelector('.bg-red-500 .font-bold').textContent = data.message_count;
+
+            // Update Total Senders
+            document.querySelector('.bg-yellow-500 .font-bold').textContent = data.sender_count;
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var daerahChart = new Chart(document.getElementById('daerahChart').getContext('2d'), {
             type: 'pie',
             data: {
-                labels: @json($labels2), // Region names (Daerah)
+                labels: @json($labels1),
                 datasets: [{
-                    label: 'Messages Count',
-                    data: @json($data2), // Message counts per region
-                    backgroundColor: @json($colors2), // Colors from the backend
-                    borderColor: @json($colors2).map(color2 => color2.replace('0.2',
-                        '1')), // Darker borders
-                    borderWidth: 1
-                }]
+                    label: 'Messages by Region',
+                    data: @json($data1),
+                    backgroundColor: @json($colors1),
+                    borderColor: @json($colors1).map(color => color.replace('0.2', '1')),
+                    borderWidth: 1,
+                }],
             },
             options: {
                 responsive: true,
                 plugins: {
                     legend: {
-                        position: 'top',
+                        position: 'bottom'
                     },
                     tooltip: {
                         callbacks: {
                             label: function(tooltipItem) {
-                                return tooltipItem.label + ': ' + tooltipItem.raw +
-                                    ' messages'; // Show count in tooltip
-                            }
-                        }
-                    }
-                }
-            }
+                                return tooltipItem.label + ': ' + tooltipItem.raw + ' messages';
+                            },
+                        },
+                    },
+                },
+            },
+        });
+
+        var categoryChart = new Chart(document.getElementById('categoryChart').getContext('2d'), {
+            type: 'pie',
+            data: {
+                labels: @json($labels2),
+                datasets: [{
+                    label: 'Messages by Category',
+                    data: @json($data2),
+                    backgroundColor: @json($colors2),
+                    borderColor: @json($colors2).map(color => color.replace('0.2', '1')),
+                    borderWidth: 1,
+                }],
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw + ' messages';
+                            },
+                        },
+                    },
+                },
+            },
         });
     </script>
 
