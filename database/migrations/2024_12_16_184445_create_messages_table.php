@@ -15,10 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('pekerjaan');
-            $table->string('whatsapp');
-            $table->string('email');
+            $table->string('whatsapp')->nullable();
+            $table->string('email')->nullable();
             $table->string('usia');
-            $table->string('pengarepan');
             $table->foreignId('daerah_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('category_id') // Use foreignId for Laravel 11
                 ->constrained('categories')  // Automatically references the 'id' column

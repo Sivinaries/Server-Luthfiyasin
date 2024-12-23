@@ -27,7 +27,7 @@
                 </div>
             </a>
         @endif
-        <div class="md:hidden flex justify-end items-end my-auto">
+        <div class="flex justify-end items-end my-auto">
             <button id="toggle-button" class="transform transition-transform duration-300">
                 <!-- Hamburger icon -->
                 <svg id="menu-open" class="block" width="20px" height="30px" viewBox="0 0 24 24" fill="none"

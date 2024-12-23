@@ -15,7 +15,6 @@ class Message extends Model
         'email',
         'usia',
         'daerah_id',
-        'pengarepan',
         'category_id',
     ];
 

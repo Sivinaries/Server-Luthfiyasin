@@ -1,25 +1,27 @@
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="description" content="Nikmati pengalaman memesan kopi murah dan enak di Sivinaries Coffee. Pesan sekarang melalui aplikasi kami untuk berbagai pilihan kopi berkualitas dengan harga terjangkau.">
-<meta name="keywords" content="kopi murah, kopi enak, aplikasi kopi, pesan kopi online, Sivinaries Coffee, kopi berkualitas, kopi terbaik">
-<meta name="author" content="Sivinaries Coffee">
-<meta name="robots" content="index, follow">
-<link rel="icon" sizes="76x76" href="{{ asset('logo.png') }}" />
-<link rel="icon" type="image/png" href="{{ asset('logo.png') }}" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description"
+    content="Official website Luthfi Taj Yasin, Gubernur Terpilih Jawa Tengah. Mari bergabung untuk memberikan saran dan ide untuk pembangunan Jawa Tengah. #NGOPENI NGLAKONI." />
+<meta name="keywords"
+    content="Gubernur Jateng, Jawa Tengah, Luthfi Taj Yasin, Saran, Rembug, Pembangunan, NGOPENI NGLAKONI" />
+<meta name="author" content="Luthfi Taj Yasin" />
+<meta name="robots" content="index, follow" />
+
+<!-- Social Media Metadata -->
+<meta content="https://admin.ngopeninglakoni.id/" property="og:url" />
+<meta content="website" property="og:type" />
+<meta content="Luthfi Taj Yasin - Gubernur Terpilih Jateng #NGOPENI NGLAKONI" property="og:title" />
+<meta
+    content="Website resmi Luthfi Taj Yasin, Gubernur Terpilih Jawa Tengah. Ayo ikut memberikan saran dan ide untuk kemajuan Jawa Tengah. #NGOPENI NGLAKONI."
+    property="og:description" />
+<meta content="https://admin.ngopeninglakoni.id/logo.png" property="og:image" />
+
+<link rel="icon" type="image/png" href="/logo.png" />
+<link rel="apple-touch-icon" href="/logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<!-- PWA -->
-<meta name="theme-color" content="#ffffff"/>
-<link rel="apple-touch-icon" href="{{ asset('logo.png') }}">
-<link rel="manifest" href="{{ asset('/manifest.json') }}">
-
-<!-- Social Media Metadata -->
-<meta property="og:title" content="Sivinaries Coffee - Aplikasi Pemesanan Kopi Murah dan Enak">
-<meta property="og:description" content="Nikmati kopi murah dan enak melalui aplikasi Sivinaries Coffee. Pesan sekarang dan temukan berbagai pilihan kopi terbaik!">
-<meta property="og:image" content="{{ asset('logo.png') }}">
-<meta property="og:url" content="https://sivinaries.my.id/">
-<meta property="og:type" content="website">
-
+<!-- CSS -->
 @vite('resources/css/app.css')
-

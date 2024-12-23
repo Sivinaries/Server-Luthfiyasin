@@ -11,27 +11,17 @@
     <!-- sidenav  -->
     @include('layout.sidebar')
     <!-- end sidenav -->
-    <main class="md:ml-64 xl:ml-72 2xl:ml-72">
+    <main class="">
         <!-- Navbar -->
         @include('layout.navbar')
         <!-- end Navbar -->
         <div class="p-5">
             <div class='w-full rounded-xl h-fit mx-auto space-y-2'>
-                <div class="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-4 lg:grid-cols-4 gap-4 p-2">
+                <div class="grid grid-cols-2 gap-4 p-2">
                     <!-- card1 -->
                     <div class="bg-red-500 p-6 rounded-lg shadow-xl">
                         <h1 class="text-2xl text-white font-bold">{{ $message }}</h1>
                         <h1 class="text-xl font-light text-white text-right">Message</h1>
-                    </div>
-                    <!-- card2 -->
-                    <div class="bg-blue-500 p-6 rounded-lg shadow-xl">
-                        <h1 class="text-2xl text-white font-bold">{{ $country }}</h1>
-                        <h1 class="text-xl font-light text-white text-right">Country</h1>
-                    </div>
-                    <!-- card3 -->
-                    <div class="bg-green-500 p-6 rounded-lg shadow-xl">
-                        <h1 class="text-2xl text-white font-bold">{{ $category }}</h1>
-                        <h1 class="text-xl font-light text-white text-right">Category</h1>
                     </div>
                     <!-- card4 -->
                     <div class="bg-yellow-500 p-6 rounded-lg shadow-xl">
@@ -67,9 +57,10 @@
             cluster: "",
             enabledTransports: ['ws'],
             forceTLS: false,
-            wsHost: "192.168.100.48",
+            wsHost: "192.168.100.28",
             wsPort: "8080"
         });
+
 
         var channel = pusher.subscribe("messages");
 
@@ -152,8 +143,6 @@
             },
         });
     </script>
-
-    @include('layout.script')
     @include('sweetalert::alert')
 </body>
 

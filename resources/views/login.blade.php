@@ -63,8 +63,6 @@
         </div>
     </div>
     @include('sweetalert::alert')
-    @include('layout.script')
-
     <script>
         // Password Visibility Toggle for Login
         document.getElementById('toggle-password').addEventListener('click', function() {

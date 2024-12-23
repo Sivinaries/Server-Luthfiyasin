@@ -1,6 +1,6 @@
 <div class="flex">
     <aside id="sidebar"
-        class="font-poppins fixed inset-y-0 my-6 ml-4 w-full max-w-72 md:max-w-60 xl:max-w-64 2xl:max-w-64 z-50 rounded-3xl bg-white shadow-2xl overflow-y-scroll transform transition-transform duration-300 -translate-x-full md:translate-x-0 ease-in-out">
+        class="font-poppins fixed inset-y-0 my-6 ml-4 w-full max-w-72 md:max-w-60 xl:max-w-64 2xl:max-w-64 z-50 rounded-3xl bg-white shadow-2xl overflow-y-scroll transform transition-transform duration-300 -translate-x-full ease-in-out">
         <div class="p-2">
             <div class="">
                 <a class="text-center" href="{{ route('dashboard') }}">
@@ -29,7 +29,7 @@
                                     <i class="material-icons text-white">chat</i>
                                 </div>
                                 <div class="my-auto">
-                                    <h1 class="text-gray-500 hover:text-black text-base font-normal">Message</h1>
+                                    <h1 class="text-gray-500 hover:text-black text-base font-normal">Pesan</h1>
                                 </div>
                             </div>
                         </a>
@@ -40,7 +40,7 @@
                                 <i class="material-icons text-white">settings</i>
                             </div>
                             <div class="my-auto">
-                                <h1 class="text-black text-base font-normal">Manage</h1>
+                                <h1 class="text-black text-base font-normal">Pengaturan</h1>
                             </div>
                         </div>
                     </li>
@@ -48,28 +48,42 @@
                     <li class="p-4 mx-2">
                         <div class="ml-16 md:ml-14">
                             <a href="{{ route('country') }}">
-                                <h1 class="text-gray-500 hover:text-black text-base font-normal">Country</h1>
+                                <h1 class="text-gray-500 hover:text-black text-base font-normal">Daerah</h1>
                             </a>
                         </div>
                     </li>
                     <li class="p-4 mx-2">
                         <div class="ml-16 md:ml-14">
                             <a href="{{ route('category') }}">
-                                <h1 class="text-gray-500 hover:text-black text-base font-normal">Category</h1>
+                                <h1 class="text-gray-500 hover:text-black text-base font-normal">Kategori</h1>
                             </a>
                         </div>
                     </li>
                     <li class="p-4 mx-2">
                         <div class="ml-16 md:ml-14">
                             <a href="{{ route('sender') }}">
-                                <h1 class="text-gray-500 hover:text-black text-base font-normal">Sender</h1>
+                                <h1 class="text-gray-500 hover:text-black text-base font-normal">Pengirim</h1>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="p-4 mx-2">
+                        <div class="ml-16 md:ml-14">
+                            <a href="{{ route('barcode') }}">
+                                <h1 class="text-gray-500 hover:text-black text-base font-normal">Barcode</h1>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="p-4 mx-2">
+                        <div class="ml-16 md:ml-14">
+                            <a href="{{ route('sender') }}">
+                                <h1 class="text-gray-500 hover:text-black text-base font-normal">Live</h1>
                             </a>
                         </div>
                     </li>
                     <li class="p-4 mx-2">
                         <div class="ml-16 md:ml-14">
                             <a href="{{ route('user') }}">
-                                <h1 class="text-gray-500 hover:text-black text-base font-normal">User</h1>
+                                <h1 class="text-gray-500 hover:text-black text-base font-normal">Pengguna</h1>
                             </a>
                         </div>
                     </li>

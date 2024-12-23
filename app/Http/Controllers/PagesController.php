@@ -7,6 +7,7 @@ use App\Models\Message;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PagesController extends Controller
 {
@@ -17,7 +18,7 @@ class PagesController extends Controller
         $category = Category::count();
         $sender = Message::count();
 
-        
+
         // CHARTS DAERAH - Count messages by region (daerah)
         $grafikDaerah = Message::selectRaw("COUNT(*) as count, daerah_id")
             ->groupBy('daerah_id') // Group by region (daerah)
@@ -90,7 +91,6 @@ class PagesController extends Controller
             'data2',
             'colors2',
         ));
-
     }
 
     public function search(Request $request)
@@ -119,5 +119,23 @@ class PagesController extends Controller
         return view('search', compact(
             'messages',
         ));
+    }
+    
+    public function barcode()
+    {
+        $url = "https://ngopeninglakoni.id/";
+
+        $qrCode = QrCode::format('svg')
+            ->size(500)
+            ->generate($url);
+
+        return view('barcode', ['qrCode' => $qrCode]);
+    }
+
+
+    public function live()
+    {
+
+        return view('live');
     }
 }

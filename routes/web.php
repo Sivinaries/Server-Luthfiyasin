@@ -1,6 +1,8 @@
 <?php
 
 use App\Events\MessageSent;
+use App\Exports\MessagesExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
@@ -17,9 +19,15 @@ Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/signin', [AuthController::class, 'signin'])->name('signin');
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/messages/export', function () {
+        return Excel::download(new MessagesExport, 'messages.xlsx');
+    })->name('export');
+    
     //PAGES
     Route::get('/dashboard', [PagesController::class, 'dashboard'])->name('dashboard');
     Route::get('/search', [PagesController::class, 'search'])->name('search');
+    Route::get('/barcode', [PagesController::class, 'barcode'])->name('barcode');
 
     //USER CONTROLLER
     Route::get('/users', [UserController::class, 'index'])->name('user');
@@ -29,6 +37,7 @@ Route::middleware('auth')->group(function () {
 
     //MESSAGE CONTROLLER
     Route::get('/message', [MessageController::class, 'index'])->name('message');
+    Route::delete('/message/{id}/delete', [MessageController::class, 'destroy'])->name('delmessage');
 
     //SENDER CONTROLLER
     Route::get('/sender', [SenderController::class, 'index'])->name('sender');

@@ -12,15 +12,17 @@
     <!-- sidenav  -->
     @include('layout.sidebar')
     <!-- end sidenav -->
-    <main class="md:ml-64 xl:ml-72 2xl:ml-72">
+    <main class="">
         <!-- Navbar -->
         @include('layout.navbar')
         <!-- end Navbar -->
         <div class="p-5">
             <div class='w-full rounded-xl bg-white h-fit mx-auto'>
                 <div class="p-3">
-                    <div class="">
+                    <div class="flex justify-between">
                         <h1 class="font-extrabold text-3xl">Message</h1>
+                        <a class="p-2 bg-green-500 rounded-xl text-white hover:text-black text-center"
+                            href="{{ route('export') }}">Export</a>
                     </div>
                 </div>
                 <div class="p-2">
@@ -31,10 +33,6 @@
                                 <th>Date</th>
                                 <th>Kategori</th>
                                 <th>Nama</th>
-                                <th>Pekerjaan</th>
-                                <th>Whatsapp</th>
-                                <th>Email</th>
-                                <th>Usia</th>
                                 <th>Daerah</th>
                                 <th>Pengarepan</th>
                                 <th>Action</th>
@@ -49,10 +47,6 @@
                                         <td>{{ $item->created_at }}</td>
                                         <td>{{ $item->category->nama }}</td>
                                         <td>{{ $item->nama }}</td>
-                                        <td>{{ $item->pekerjaan }}</td>
-                                        <td>{{ $item->whatsapp }}</td>
-                                        <td>{{ $item->email }}</td>
-                                        <td>{{ $item->usia }}</td>
                                         <td>{{ $item->daerah->nama }}</td>
                                         <td>{{ $item->pengarepan }}</td>
                                         <td class="">
@@ -60,7 +54,7 @@
                                                 <form
                                                     class="p-2 text-white hover:text-black bg-red-500 rounded-xl text-center"
                                                     method="post"
-                                                    action="{{ route('delcategory', ['id' => $item->id]) }}">
+                                                    action="{{ route('delmessage', ['id' => $item->id]) }}">
                                                     @csrf
                                                     @method('delete')
                                                     <button type="submit">Delete</button>
@@ -99,7 +93,7 @@
             cluster: "",
             enabledTransports: ['ws'],
             forceTLS: false,
-            wsHost: "192.168.100.48",
+            wsHost: "192.168.100.28",
             wsPort: "8080"
         });
 
@@ -133,8 +127,6 @@
     </script>
 
     @include('sweetalert::alert')
-    @include('layout.script')
-
 </body>
 
 </html>

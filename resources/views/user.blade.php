@@ -11,8 +11,7 @@
     <!-- sidenav  -->
     @include('layout.sidebar')
     <!-- end sidenav -->
-    <main class="md:ml-64 xl:ml-72 2xl:ml-72">
-
+    <main class="">
         <!-- Navbar -->
         @include('layout.navbar')
         <!-- end Navbar -->
@@ -86,7 +85,5 @@
         });
     </script>
     @include('sweetalert::alert')
-    @include('layout.script')
-
 </body>
 </html>
