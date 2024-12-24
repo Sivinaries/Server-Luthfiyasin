@@ -21,7 +21,8 @@
                 <div class="p-3">
                     <div class="flex justify-between">
                         <h1 class="font-extrabold text-3xl">Country</h1>
-                        <a class="p-2 bg-blue-500 rounded-xl text-white hover:text-black text-center" href="{{ route('addcountry') }}">Add
+                        <a class="p-2 bg-blue-500 rounded-xl text-white hover:text-black text-center"
+                            href="{{ route('addcountry') }}">Add
                             country</a>
                     </div>
                 </div>
@@ -43,14 +44,7 @@
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $item->created_at }}</td>
                                         <td>{{ $item->nama }}</td>
-                                        <td class="flex gap-2">
-                                            <div class="w-full">
-                                                <a href="{{ route('editcountry', ['id' => $item->id]) }}">
-                                                    <h1
-                                                        class="p-2 text-white hover:text-black bg-blue-500 rounded-xl text-center">
-                                                        Edit</h1>
-                                                </a>
-                                            </div>
+                                        <td class="">
                                             <div class="w-full">
                                                 <form
                                                     class="p-2 text-white hover:text-black bg-red-500 rounded-xl text-center"
@@ -70,6 +64,8 @@
                 </div>
             </div>
         </div>
+        {{-- FOOTER --}}
+        @include('layout.footer')
     </main>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -90,4 +86,5 @@
     </script>
     @include('sweetalert::alert')
 </body>
+
 </html>

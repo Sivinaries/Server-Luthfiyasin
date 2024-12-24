@@ -38,6 +38,9 @@
                 </div>
             </div>
         </div>
+        {{-- FOOTER --}}
+        @include('layout.footer')
     </main>
 </body>
+
 </html>

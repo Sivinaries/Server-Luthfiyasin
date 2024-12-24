@@ -15,12 +15,11 @@ class Message extends Model
         'email',
         'usia',
         'daerah_id',
-        'category_id',
     ];
 
-    public function category()
+    public function kategoriMessages()
     {
-        return $this->belongsTo(Category::class);
+        return $this->hasMany(KategoriMessage::class);
     }
 
     public function daerah()

@@ -29,13 +29,14 @@
                     <div class="overflow-auto">
                         <table id="myTable" class="bg-gray-50 border-2">
                             <thead class="w-full">
-                                <th>No</th>
-                                <th>Date</th>
-                                <th>Kategori</th>
-                                <th>Nama</th>
-                                <th>Daerah</th>
-                                <th>Pengarepan</th>
-                                <th>Action</th>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Date</th>
+                                    <th>Nama</th>
+                                    <th>Daerah</th>
+                                    <th>Pengarepan</th>
+                                    <th>Action</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 @php
@@ -45,11 +46,14 @@
                                     <tr class="border-2">
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $item->created_at }}</td>
-                                        <td>{{ $item->category->nama }}</td>
                                         <td>{{ $item->nama }}</td>
                                         <td>{{ $item->daerah->nama }}</td>
-                                        <td>{{ $item->pengarepan }}</td>
-                                        <td class="">
+                                        <td>
+                                            @foreach ($item->kategoriMessages as $cat)
+                                                <div>{{ $cat->kategori->nama }} - {{ $cat->wish }}</div>
+                                            @endforeach
+                                        </td>
+                                        <td>
                                             <div class="w-full">
                                                 <form
                                                     class="p-2 text-white hover:text-black bg-red-500 rounded-xl text-center"
@@ -69,6 +73,8 @@
                 </div>
             </div>
         </div>
+        {{-- FOOTER --}}
+        @include('layout.footer')
     </main>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -79,49 +85,10 @@
                 columnDefs: [{
                     targets: 1, // Index of the 'Date' column
                     render: function(data, type, row) {
-                        // Assuming the date is in 'YYYY-MM-DD HH:MM:SS' format
                         var date = new Date(data);
                         return date.toLocaleDateString(); // Format the date as needed
                     },
                 }, ],
-            });
-        });
-    </script>
-    <script src="https://js.pusher.com/8.3.0/pusher.min.js"></script>
-    <script>
-        var pusher = new Pusher("ivpc4objrm2qhg4k3uhy", {
-            cluster: "",
-            enabledTransports: ['ws'],
-            forceTLS: false,
-            wsHost: "192.168.100.28",
-            wsPort: "8080"
-        });
-
-        var channel = pusher.subscribe("messages");
-
-        channel.bind("new-message", function(data) {
-            let table = document.getElementById('myTable').getElementsByTagName('tbody')[0];
-            let row = table.insertRow();
-
-            const fields = [
-                table.rows.length,
-                new Date(data.created_at).toLocaleDateString(),
-                data.category,
-                data.nama,
-                data.pekerjaan,
-                data.whatsapp,
-                data.email,
-                data.usia,
-                data.daerah,
-                data.pengarepan,
-                `<form method="post" action="/message/delete/${data.id}">
-                    <button type="submit" class="p-2 text-white hover:text-black bg-red-500 rounded-xl text-center">Delete</button>
-                </form>`
-            ];
-
-            fields.forEach((value, index) => {
-                let cell = row.insertCell(index);
-                cell.innerHTML = value;
             });
         });
     </script>

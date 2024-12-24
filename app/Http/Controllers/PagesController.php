@@ -4,20 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Daerah;
 use App\Models\Message;
-use App\Models\Category;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
+use App\Models\KategoriMessage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PagesController extends Controller
 {
     public function dashboard()
     {
+        $nama = Message::pluck('nama');
         $message = Message::count();
-        $country = Daerah::count();
-        $category = Category::count();
         $sender = Message::count();
-
 
         // CHARTS DAERAH - Count messages by region (daerah)
         $grafikDaerah = Message::selectRaw("COUNT(*) as count, daerah_id")
@@ -50,8 +48,8 @@ class PagesController extends Controller
         }
 
         // CHARTS CATEGORY - Count messages by category
-        $grafikCategory = Message::selectRaw("COUNT(*) as count, category_id")
-            ->groupBy('category_id') // Group by region (daerah)
+        $grafikCategory = KategoriMessage::selectRaw("COUNT(*) as count, kategori_id")
+            ->groupBy('kategori_id') // Group by region (daerah)
             ->get();
 
         $labels2 = [];
@@ -72,7 +70,7 @@ class PagesController extends Controller
         ];
 
         foreach ($grafikCategory as $index => $data) {
-            $categoryName = Category::find($data->category_id)->nama;
+            $categoryName = Kategori::find($data->kategori_id)->nama;
             $labels2[] = $categoryName;
             $data2[] = $data->count;
 
@@ -80,9 +78,8 @@ class PagesController extends Controller
         }
 
         return view('dashboard', compact(
+            'nama',
             'message',
-            'country',
-            'category',
             'sender',
             'labels1',
             'data1',
@@ -100,7 +97,6 @@ class PagesController extends Controller
 
         //MESSAGE SEARCH
         $messages = Message::where('nama', 'LIKE', '%' . $query . '%')
-            ->orWhere('pengarepan', 'LIKE', '%' . $query . '%')
             ->get();
 
         //COUNTRY SEARCH
@@ -108,7 +104,7 @@ class PagesController extends Controller
             ->get();
 
         //CATEGORY SEARCH
-        $categories = Category::where('nama', 'LIKE', '%' . $query . '%')
+        $categories = Kategori::where('nama', 'LIKE', '%' . $query . '%')
             ->get();
 
         //SENDER SEARCH
@@ -120,22 +116,17 @@ class PagesController extends Controller
             'messages',
         ));
     }
-    
+
     public function barcode()
     {
         $url = "https://ngopeninglakoni.id/";
 
         $qrCode = QrCode::format('svg')
-            ->size(500)
+            ->size(300)
             ->generate($url);
 
         return view('barcode', ['qrCode' => $qrCode]);
     }
 
 
-    public function live()
-    {
-
-        return view('live');
-    }
 }

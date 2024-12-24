@@ -31,17 +31,14 @@
                                 <div class="overflow-auto">
                                     <table id="Message" class="bg-gray-50 border-2">
                                         <thead class="w-full">
-                                            <th>No</th>
-                                            <th>Date</th>
-                                            <th>Kategori</th>
-                                            <th>Nama</th>
-                                            <th>Pekerjaan</th>
-                                            <th>Whatsapp</th>
-                                            <th>Email</th>
-                                            <th>Usia</th>
-                                            <th>Daerah</th>
-                                            <th>Pengarepan</th>
-                                            <th>Action</th>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Date</th>
+                                                <th>Nama</th>
+                                                <th>Daerah</th>
+                                                <th>Pengarepan</th>
+                                                <th>Action</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
                                             @php
@@ -51,20 +48,19 @@
                                                 <tr class="border-2">
                                                     <td>{{ $no++ }}</td>
                                                     <td>{{ $item->created_at }}</td>
-                                                    <td>{{ $item->category->nama }}</td>
                                                     <td>{{ $item->nama }}</td>
-                                                    <td>{{ $item->pekerjaan }}</td>
-                                                    <td>{{ $item->whatsapp }}</td>
-                                                    <td>{{ $item->email }}</td>
-                                                    <td>{{ $item->usia }}</td>
                                                     <td>{{ $item->daerah->nama }}</td>
-                                                    <td>{{ $item->pengarepan }}</td>
-                                                    <td class="">
+                                                    <td>
+                                                        @foreach ($item->kategoriMessages as $cat)
+                                                            <div>{{ $cat->kategori->nama }} - {{ $cat->wish }}</div>
+                                                        @endforeach
+                                                    </td>
+                                                    <td>
                                                         <div class="w-full">
                                                             <form
                                                                 class="p-2 text-white hover:text-black bg-red-500 rounded-xl text-center"
                                                                 method="post"
-                                                                action="{{ route('delcategory', ['id' => $item->id]) }}">
+                                                                action="{{ route('delmessage', ['id' => $item->id]) }}">
                                                                 @csrf
                                                                 @method('delete')
                                                                 <button type="submit">Delete</button>
@@ -75,6 +71,7 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+
                                 </div>
                             </div>
                         </div>
@@ -82,6 +79,8 @@
                 </div>
             </div>
         </div>
+        {{-- FOOTER --}}
+        @include('layout.footer')
     </main>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -89,54 +88,6 @@
     <script>
         $(document).ready(function() {
             let table = new DataTable('#Message', {
-                columnDefs: [{
-                    targets: 1, // Index of the 'Date' column
-                    render: function(data, type, row) {
-                        // Assuming the date is in 'YYYY-MM-DD HH:MM:SS' format
-                        var date = new Date(data);
-                        return date.toLocaleDateString(); // Format the date as needed
-                    },
-                }, ],
-            });
-        });
-        $(document).ready(function() {
-            let table = new DataTable('#Tableemployee', {
-                columnDefs: [{
-                    targets: 1, // Index of the 'Date' column
-                    render: function(data, type, row) {
-                        // Assuming the date is in 'YYYY-MM-DD HH:MM:SS' format
-                        var date = new Date(data);
-                        return date.toLocaleDateString(); // Format the date as needed
-                    },
-                }, ],
-            });
-        });
-        $(document).ready(function() {
-            let table = new DataTable('#Tablechair', {
-                columnDefs: [{
-                    targets: 1, // Index of the 'Date' column
-                    render: function(data, type, row) {
-                        // Assuming the date is in 'YYYY-MM-DD HH:MM:SS' format
-                        var date = new Date(data);
-                        return date.toLocaleDateString(); // Format the date as needed
-                    },
-                }, ],
-            });
-        });
-        $(document).ready(function() {
-            let table = new DataTable('#Tablediscount', {
-                columnDefs: [{
-                    targets: 1, // Index of the 'Date' column
-                    render: function(data, type, row) {
-                        // Assuming the date is in 'YYYY-MM-DD HH:MM:SS' format
-                        var date = new Date(data);
-                        return date.toLocaleDateString(); // Format the date as needed
-                    },
-                }, ],
-            });
-        });
-        $(document).ready(function() {
-            let table = new DataTable('#Tablehistory', {
                 columnDefs: [{
                     targets: 1, // Index of the 'Date' column
                     render: function(data, type, row) {

@@ -15,8 +15,6 @@ class User extends Authenticatable
         'email',
         'password',
         'level',
-        'no_telpon',
-        'google_id',
     ];
 
     protected $hidden = [
@@ -27,24 +25,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
-    public function carts()
-    {
-        return $this->hasMany(Cart::class);
-    }
-
-    public function store()
-    {
-        return $this->hasOne(Store::class);
-    }
-    
-    public function chair()
-    {
-        return $this->hasMany(Chair::class);
-    }
-
-    public function settlements()
-    {
-        return $this->hasMany(Settlement::class);
-    }
 }

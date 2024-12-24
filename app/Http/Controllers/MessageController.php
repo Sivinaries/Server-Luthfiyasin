@@ -11,7 +11,7 @@ class MessageController extends Controller
     public function index()
     {
         $messages = Cache::remember('messages', now()->addMinutes(60), function () {
-            return Message::with('category', 'daerah')->get();
+            return Message::with('kategoriMessages.kategori')->get();
         });
 
         return view('message', compact('messages'));

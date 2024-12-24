@@ -10,13 +10,17 @@ class MessagesExport implements FromCollection, WithHeadings
 {
     public function collection()
     {
-        return Message::with('category', 'daerah')->get()->map(function ($message) {
+        return Message::with('kategoriMessages.kategori')->get()->map(function ($message) {
+            // Combine categories and wishes into a single string
+            $pengarepan = $message->kategoriMessages->map(function ($kategoriMessage) {
+                return $kategoriMessage->kategori->nama . ' - ' . $kategoriMessage->wish;
+            })->implode(', ');
+
             return [
                 'Date' => $message->created_at->format('Y-m-d'),
-                'Kategori' => $message->category->nama,
                 'Nama' => $message->nama,
                 'Daerah' => $message->daerah->nama,
-                'Pengarepan' => $message->pengarepan,
+                'Pengarepan' => $pengarepan, // Concatenated categories and wishes
             ];
         });
     }
@@ -25,7 +29,6 @@ class MessagesExport implements FromCollection, WithHeadings
     {
         return [
             'Date',
-            'Kategori',
             'Nama',
             'Daerah',
             'Pengarepan',

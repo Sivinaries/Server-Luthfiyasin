@@ -4,10 +4,25 @@
 <head>
     <title>Dashboard</title>
     @include('layout.head')
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        .swiper-container {
+            overflow: hidden;
+        }
+
+        .swiper-slide {
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+    </style>
 </head>
 
 <body class="bg-gray-50">
-
     <!-- sidenav  -->
     @include('layout.sidebar')
     <!-- end sidenav -->
@@ -16,40 +31,70 @@
         @include('layout.navbar')
         <!-- end Navbar -->
         <div class="p-5">
-            <div class='w-full rounded-xl h-fit mx-auto space-y-2'>
-                <div class="grid grid-cols-2 gap-4 p-2">
-                    <!-- card1 -->
-                    <div class="bg-red-500 p-6 rounded-lg shadow-xl">
-                        <h1 class="text-2xl text-white font-bold">{{ $message }}</h1>
-                        <h1 class="text-xl font-light text-white text-right">Message</h1>
-                    </div>
-                    <!-- card4 -->
-                    <div class="bg-yellow-500 p-6 rounded-lg shadow-xl">
-                        <h1 class="text-2xl text-white font-bold">{{ $sender }}</h1>
-                        <h1 class="text-xl font-light text-white text-right">Sender</h1>
-                    </div>
-                </div>
-                <!-- chart section -->
-                <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 ">
-                    <!-- chart 1 -->
-                    <div class="p-6 bg-white rounded-xl shadow-xl my-auto">
-                        <h1 class="font-light">Pesan Berdasarkan Daerah</h1>
-                        <i class="fa fa-arrow-up text-lime-500"></i>
-                        <div class="md:w-5/6 mx-auto">
-                            <canvas id="daerahChart" width="50" height="50"></canvas>
+            <div class=''>
+                <div class="grid grid-cols-2 md:grid-cols-6">
+                    <div class="grid p-2 col-span-full md:col-span-3">
+                        <div class="p-6 bg-white rounded-xl shadow-xl border-blue-800 border-4">
+                            <img class="w-full h-full" src="{{ asset('assets/home.svg') }}" alt="">
                         </div>
                     </div>
-                    <!-- chart 2 -->
-                    <div class="p-6 bg-white rounded-xl shadow-xl my-auto">
-                        <h1 class="font-light">Pesan Berdasarkan Kategori</h1>
-                        <i class="fa fa-arrow-up text-lime-500"></i>
-                        <div class="md:w-5/6 mx-auto">
-                            <canvas id="categoryChart" width="50" height="50"></canvas>
+                    <div class="grid grid-cols-2 gap-4 p-2 col-span-full md:col-span-3">
+                        <!-- chart 1 -->
+                        <div class="bg-white rounded-xl shadow-xl border-blue-800 border-4 space-y-2">
+                            <h1 class="md:text-lg text-black font-bold text-center">Pesan Berdasarkan Daerah</h1>
+                            <i class="fa fa-arrow-up text-lime-500"></i>
+                            <div class="md:w-4/5 mx-auto">
+                                <canvas id="daerahChart" width="100" height="100"></canvas>
+                            </div>
+                        </div>
+                        <!-- chart 2 -->
+                        <div class="bg-white rounded-xl shadow-xl border-blue-800 border-4 space-y-2">
+                            <h1 class="md:text-lg text-black font-bold text-center">Pesan Berdasarkan Kategori</h1>
+                            <i class="fa fa-arrow-up text-lime-500"></i>
+                            <div class="md:w-4/5 mx-auto">
+                                <canvas id="categoryChart" width="100" height="100"></canvas>
+                            </div>
+                        </div>
+                        <!-- card 1 -->
+                        <div
+                            class="bg-white rounded-lg shadow-xl flex flex-col justify-center items-center space-y-2 border-blue-800 border-4">
+                            <h1 class="text-xl md:text-3xl font-light text-black text-center">Message</h1>
+                            <h1 class="text-xl md:text-5xl text-black font-bold text-center message">
+                                6{{ $message }}</h1>
+                        </div>
+                        <!-- card 2 -->
+                        <div
+                            class="bg-white rounded-lg shadow-xl flex flex-col justify-center items-center space-y-2 border-blue-800 border-4">
+                            <h1 class="text-xl md:text-3xl font-light text-black text-center">Sender</h1>
+                            <h1 class="text-xl md:text-5xl text-black font-bold text-center sender">6{{ $sender }}
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-2">
+                    <div class="p-2 md:p-24 rounded-xl shadow-xl border-blue-800 border-4 space-y-4"
+                        style="background-image: url('{{ asset('assets/bg.png') }}'); background-size: cover; background-position: center;">
+                        <div class="bg-white p-2 md:p-12 rounded-xl md:w-3/4 mx-auto border-4 border-blue-800">
+                            <h1 class="text-xl md:text-4xl text-black font-bold text-center">Terima Kasih Atas
+                                Partisipasinya
+                            </h1>
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    @foreach ($nama as $item)
+                                        <div class="swiper-slide">
+                                            <h1 class="text-xl md:text-4xl text-black font-bold text-center nama">
+                                                {{ $item }}</h1>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        {{-- FOOTER --}}
+        @include('layout.footer')
     </main>
     <script src="https://js.pusher.com/8.3.0/pusher.min.js"></script>
     <script>
@@ -57,7 +102,7 @@
             cluster: "",
             enabledTransports: ['ws'],
             forceTLS: false,
-            wsHost: "192.168.100.28",
+            wsHost: "192.168.100.23",
             wsPort: "8080"
         });
 
@@ -76,10 +121,13 @@
             categoryChart.update();
 
             // Update Total Messages
-            document.querySelector('.bg-red-500 .font-bold').textContent = data.message_count;
+            document.querySelector('.message').textContent = data.message_count;
 
             // Update Total Senders
-            document.querySelector('.bg-yellow-500 .font-bold').textContent = data.sender_count;
+            document.querySelector('.sender').textContent = data.sender_count;
+
+            // Update Nama Senders
+            document.querySelector('.nama').textContent = data.nama;
         });
     </script>
 
@@ -140,6 +188,20 @@
                         },
                     },
                 },
+            },
+        });
+    </script>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            spaceBetween: 100,
+            slidesPerView: 1,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: true,
             },
         });
     </script>

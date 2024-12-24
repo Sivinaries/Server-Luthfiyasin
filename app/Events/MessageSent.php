@@ -5,6 +5,8 @@ namespace App\Events;
 use App\Models\Daerah;
 use App\Models\Message;
 use App\Models\Category;
+use App\Models\Kategori;
+use App\Models\KategoriMessage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -45,23 +47,15 @@ class MessageSent implements ShouldBroadcast
                 return [Daerah::find($item->daerah_id)->nama => $item->count];
             });
 
-        $categories = Message::selectRaw("COUNT(*) as count, category_id")
-            ->groupBy('category_id')
+        $categories = KategoriMessage::selectRaw("COUNT(*) as count, kategori_id")
+            ->groupBy('kategori_id')
             ->get()
             ->mapWithKeys(function ($item) {
-                return [Category::find($item->category_id)->nama => $item->count];
+                return [KategorI::find($item->kategori_id)->nama => $item->count];
             });
 
         return [
-            'created_at' => $this->message->created_at,
             'nama' => $this->message->nama,
-            'pekerjaan' => $this->message->pekerjaan,
-            'whatsapp' => $this->message->whatsapp,
-            'email' => $this->message->email,
-            'usia' => $this->message->usia,
-            'daerah' => $this->message->daerah->name,
-            'category' => $this->message->category->name,
-            'pengarepan' => $this->message->pengarepan,
             'message_count' => Message::count(),
             'sender_count' => Message::count(),
             'chartData' => [

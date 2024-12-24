@@ -35,27 +35,6 @@ class DaerahController extends Controller
         return redirect(route('country'))->with('success', 'Country successfully created!');
     }
 
-    public function edit($id)
-    {
-        $daerah = Daerah::findOrFail($id);
-
-        return view('editdaerah', compact('daerah'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'nama' => 'required',
-        ]);
-
-        $daerah = Daerah::findOrFail($id);
-        $daerah->update($request->only(['nama']));
-
-        Cache::put('daerahs', Daerah::all(), now()->addMinutes(60));
-
-        return redirect(route('country'))->with('success', 'Country successfully updated!');
-    }
-
     public function destroy($id)
     {
         Daerah::destroy($id);

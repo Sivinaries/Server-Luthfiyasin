@@ -1,6 +1,5 @@
 <?php
 
-use App\Events\MessageSent;
 use App\Exports\MessagesExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Route;
@@ -10,13 +9,17 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\DaerahController;
 use App\Http\Controllers\SenderController;
 use App\Http\Controllers\MessageController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\KategoriController;
 
 
 //AUTH CONTROLLER
 Route::get('/', [AuthController::class, 'login'])->name('login');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/signin', [AuthController::class, 'signin'])->name('signin');
+
+Route::fallback(function () {
+    return response()->view('errors.404', [], 404);
+});
 
 Route::middleware('auth')->group(function () {
 
@@ -43,19 +46,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/sender', [SenderController::class, 'index'])->name('sender');
 
     //CATEGORY CONTROLLER
-    Route::get('/category', [CategoryController::class, 'index'])->name('category');
-    Route::get('/addcategory', [CategoryController::class, 'create'])->name('addcategory');
-    Route::post('/postcategory', [CategoryController::class, 'store'])->name('postcategory');
-    Route::get('/editcategory/{id}', [CategoryController::class, 'edit'])->name('editcategory');
-    Route::put('/category/{id}/update', [CategoryController::class, 'update'])->name('updatecategory');
-    Route::delete('/category/{id}/delete', [CategoryController::class, 'destroy'])->name('delcategory');
+    Route::get('/category', [KategoriController::class, 'index'])->name('category');
+    Route::get('/addcategory', [KategoriController::class, 'create'])->name('addcategory');
+    Route::post('/postcategory', [KategoriController::class, 'store'])->name('postcategory');
+    Route::get('/editcategory/{id}', [KategoriController::class, 'edit'])->name('editcategory');
+    Route::put('/category/{id}/update', [KategoriController::class, 'update'])->name('updatecategory');
+    Route::delete('/category/{id}/delete', [KategoriController::class, 'destroy'])->name('delcategory');
 
     //COUNTRY CONTROLLER
     Route::get('/country', [DaerahController::class, 'index'])->name('country');
     Route::get('/addcountry', [DaerahController::class, 'create'])->name('addcountry');
     Route::post('/postcountry', [DaerahController::class, 'store'])->name('postcountry');
-    Route::get('/editcountry/{id}', [DaerahController::class, 'edit'])->name('editcountry');
-    Route::put('/country/{id}/update', [DaerahController::class, 'update'])->name('updatecountry');
     Route::delete('/country/{id}/delete', [DaerahController::class, 'destroy'])->name('delcountry');
 
 

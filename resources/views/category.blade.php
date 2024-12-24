@@ -21,7 +21,8 @@
                 <div class="p-3">
                     <div class="flex justify-between">
                         <h1 class="font-extrabold text-3xl">Category</h1>
-                        <a class="p-2 bg-blue-500 rounded-xl text-white hover:text-black text-center" href="{{ route('addcategory') }}">Add
+                        <a class="p-2 bg-blue-500 rounded-xl text-white hover:text-black text-center"
+                            href="{{ route('addcategory') }}">Add
                             category</a>
                     </div>
                 </div>
@@ -38,7 +39,7 @@
                                 @php
                                     $no = 1;
                                 @endphp
-                                @foreach ($categories as $item)
+                                @foreach ($kategoris as $item)
                                     <tr class="border-2">
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $item->created_at }}</td>
@@ -70,6 +71,8 @@
                 </div>
             </div>
         </div>
+        {{-- FOOTER --}}
+        @include('layout.footer')
     </main>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -90,4 +93,5 @@
     </script>
     @include('sweetalert::alert')
 </body>
+
 </html>
