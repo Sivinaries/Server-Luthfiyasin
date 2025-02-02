@@ -56,8 +56,8 @@ class MessageSent implements ShouldBroadcast
 
         return [
             'nama' => $this->message->nama,
-            'message_count' => Message::count(),
-            'sender_count' => Message::count(),
+            'message_count' => '6' . Message::count(),
+            'sender_count' => '6' . Message::count(),
             'chartData' => [
                 'regions' => $regions,
                 'categories' => $categories,

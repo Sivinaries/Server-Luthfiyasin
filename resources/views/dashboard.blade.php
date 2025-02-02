@@ -33,28 +33,30 @@
         <div class="p-5">
             <div class=''>
                 <div class="grid grid-cols-2 md:grid-cols-6">
-                    <div class="grid p-2 col-span-full md:col-span-3">
+                    <div class="grid p-2 col-span-full md:col-span-3 space-y-4">
                         <div class="p-6 bg-white rounded-xl shadow-xl border-blue-800 border-4">
                             <img class="w-full h-full" src="{{ asset('assets/home.svg') }}" alt="">
                         </div>
+                        <div class="p-2 md:p-24 rounded-xl shadow-xl border-blue-800 border-4 space-y-4"
+                            style="background-image: url('{{ asset('assets/bg.png') }}'); background-size: cover; background-position: center;">
+                            <div class="bg-white p-2 md:p-6 rounded-xl mx-auto border-4 border-blue-800">
+                                <h1 class="text-xl md:text-4xl text-black font-bold text-center">Terima Kasih Atas
+                                    Partisipasinya
+                                </h1>
+                                <div class="swiper-container w-80 mx-auto">
+                                    <div class="swiper-wrapper">
+                                        @foreach ($nama as $item)
+                                            <div class="swiper-slide">
+                                                <h1 class="text-xl md:text-4xl text-black font-bold text-center nama">
+                                                    {{ $item }}</h1>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="grid grid-cols-2 gap-4 p-2 col-span-full md:col-span-3">
-                        <!-- chart 1 -->
-                        <div class="bg-white rounded-xl shadow-xl border-blue-800 border-4 space-y-2">
-                            <h1 class="md:text-lg text-black font-bold text-center">Pesan Berdasarkan Daerah</h1>
-                            <i class="fa fa-arrow-up text-lime-500"></i>
-                            <div class="md:w-4/5 mx-auto">
-                                <canvas id="daerahChart" width="100" height="100"></canvas>
-                            </div>
-                        </div>
-                        <!-- chart 2 -->
-                        <div class="bg-white rounded-xl shadow-xl border-blue-800 border-4 space-y-2">
-                            <h1 class="md:text-lg text-black font-bold text-center">Pesan Berdasarkan Kategori</h1>
-                            <i class="fa fa-arrow-up text-lime-500"></i>
-                            <div class="md:w-4/5 mx-auto">
-                                <canvas id="categoryChart" width="100" height="100"></canvas>
-                            </div>
-                        </div>
                         <!-- card 1 -->
                         <div
                             class="bg-white rounded-lg shadow-xl flex flex-col justify-center items-center space-y-2 border-blue-800 border-4">
@@ -69,26 +71,27 @@
                             <h1 class="text-xl md:text-5xl text-black font-bold text-center sender">6{{ $sender }}
                             </h1>
                         </div>
-                    </div>
-                </div>
-                <div class="p-2">
-                    <div class="p-2 md:p-24 rounded-xl shadow-xl border-blue-800 border-4 space-y-4"
-                        style="background-image: url('{{ asset('assets/bg.png') }}'); background-size: cover; background-position: center;">
-                        <div class="bg-white p-2 md:p-12 rounded-xl md:w-3/4 mx-auto border-4 border-blue-800">
-                            <h1 class="text-xl md:text-4xl text-black font-bold text-center">Terima Kasih Atas
-                                Partisipasinya
-                            </h1>
-                            <div class="swiper-container">
-                                <div class="swiper-wrapper">
-                                    @foreach ($nama as $item)
-                                        <div class="swiper-slide">
-                                            <h1 class="text-xl md:text-4xl text-black font-bold text-center nama">
-                                                {{ $item }}</h1>
-                                        </div>
-                                    @endforeach
-                                </div>
+                        <!-- chart 1 -->
+                        <div class="bg-white rounded-xl shadow-xl border-blue-800 border-4 ">
+                            <div class="space-y-6 my-20">
+                            <h1 class="md:text-2xl text-black font-bold text-center">Pesan Berdasarkan Daerah</h1>
+                            <i class="fa fa-arrow-up text-lime-500"></i>
+                            <div class="mx-auto my-auto">
+                                <canvas id="daerahChart" width="100" height="100"></canvas>
                             </div>
                         </div>
+                        </div>
+                        <!-- chart 2 -->
+                        <div class="bg-white rounded-xl shadow-xl border-blue-800 border-4">
+                            <div class="space-y-6 my-20">
+                            <h1 class="md:text-2xl text-black font-bold text-center">Pesan Berdasarkan Kategori</h1>
+                            <i class="fa fa-arrow-up text-lime-500"></i>
+                            <div class="mx-auto my-auto">
+                                <canvas id="categoryChart" width="100" height="100"></canvas>
+                            </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -102,7 +105,7 @@
             cluster: "",
             enabledTransports: ['ws'],
             forceTLS: false,
-            wsHost: "192.168.100.23",
+            wsHost: "192.168.18.136",
             wsPort: "8080"
         });
 

@@ -1,32 +1,5 @@
 <nav id="navbar" class="font-poppins mx-3 xl:mx-4 rounded-xl bg-white bg-opacity-90 sticky top-0 z-40 transform transition-transform duration-300">
     <div class="flex justify-around md:justify-end p-4 space-x-2 md:space-x-4">
-        <div class="flex justify-end">
-            <div class="my-auto">
-                <form method="get" action="{{ ('search') }}">
-                    <div class="md:border-2 border p-1 rounded-xl md:px-4 flex">
-                        <span class="">
-                            <i class="material-icons">search</i>
-                        </span>
-                        <input type="search" name="search" class="p-1 bg-gray-50" placeholder="Search..." />
-                        <button type="submit" class=""></button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        @if(auth()->check())
-            <a href="" class="my-auto">
-                <div class="flex space-x-2 md:space-x-4">
-                    <div class="hidden md:block my-auto">
-                        <h1 class="text-sm font-base">
-                            {{ auth()->user()->name }}
-                        </h1>
-                    </div>
-                    <div class="my-auto">
-                        <i class="material-icons">person</i>
-                    </div>
-                </div>
-            </a>
-        @endif
         <div class="flex justify-end items-end my-auto">
             <button id="toggle-button" class="transform transition-transform duration-300">
                 <!-- Hamburger icon -->
